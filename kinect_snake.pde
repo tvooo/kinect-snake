@@ -20,7 +20,6 @@ PFont playerFont = createFont("Courier New Bold",16, true);
 
 void setup(){
     size(int(windowSize), int(windowSize),P3D);
-    textAlign(LEFT, TOP);
     speed = 100;
     speed = speed/frameRate;
 
@@ -30,6 +29,7 @@ void setup(){
 }
 
 void drawText() {
+    textAlign(LEFT, TOP);
     textFont(playerFont);
     fill(snakes.get(0).fillColor);
     text("Green: " + snakes.get(0).snakeSize,windowSize*0.05,windowSize*0.05);
@@ -42,6 +42,7 @@ void draw(){
         background(0);
         //drawGrid();
         runGame();
+        drawText();
     }
     speed++;
 }
@@ -92,6 +93,7 @@ void runGame(){
             }
         }
     } else {
+        textAlign(CENTER, CENTER);
         String modelString = "Game Over";
         stroke(255);
         fill(255);
