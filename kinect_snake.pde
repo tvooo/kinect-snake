@@ -12,7 +12,8 @@ int gridSize = windowSize / fieldSize;
 float speed;
 
 boolean gameOver = false;
-PFont Font = createFont("Arial",20, true);
+PFont Font = createFont("Courier New Bold",25, true);
+PFont playerFont = createFont("Courier New Bold",16, true);
 
 void setup(){
     size(int(windowSize), int(windowSize),P3D);
@@ -30,10 +31,19 @@ void setup(){
 }
 
 void draw(){
-    if(speed%10 == 0){
+        
+
+
+  if(speed%10 == 0){
         background(0);
         drawGrid();
         runGame();
+        textAlign(LEFT, TOP);
+        textFont(playerFont);
+        fill(snakes.get(0).fillColor);
+        text("Green: " + snakes.get(0).snakeSize,windowSize*0.05,windowSize*0.05);
+        fill(snakes.get(1).fillColor);
+        text("Blue: " + snakes.get(1).snakeSize,windowSize*0.70,windowSize*0.05);
     }
     speed++;
 }
@@ -74,14 +84,15 @@ void runGame(){
             }
         }
 
+
         food.draw();
     } else {
-        String modelString = "game over";
+        String modelString = "Game Over";
         stroke(255);
         fill(255);
-        textAlign (CENTER);
+        textAlign(CENTER, BOTTOM);
         textFont(Font);
-        text(modelString,100,100,40);
+        text(modelString,windowSize*0.5,windowSize*0.5);
     }
 }
 

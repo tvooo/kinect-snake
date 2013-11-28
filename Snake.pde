@@ -27,7 +27,8 @@ class Snake {
         // Attach new segment to last one, in opposite direction of moving
         segments[snakeSize] = new Segment(this, lastSegment.posx - moveX, lastSegment.posy - moveY);
         snakeSize++;
-        println("snakeSize: " + snakeSize);
+        println("snakeSize1: " + snakes.get(0).snakeSize);
+        println("snakeSize1: " + snakes.get(1).snakeSize);
     }
 
     void draw() {
