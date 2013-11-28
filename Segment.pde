@@ -11,11 +11,11 @@ class Segment {
     }
 
     void move(int x, int y) {
-        posx = x;
-        posy = y;
+        posx = x % gridSize;
+        posy = y % gridSize;
     }
 
     void draw() {
-        rect(posx * 10, posy * 10, 10, 10);
+        rect(posx * fieldSize, posy * fieldSize, fieldSize, fieldSize);
     }
 };

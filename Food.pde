@@ -10,13 +10,14 @@ class Food {
     }
 
     Food() {
-        posx = (int)random(1,fieldSize);
-        posy = (int)random(1,fieldSize);
+        posx = (int)random(1,gridSize);
+        posy = (int)random(1,gridSize);
+        fillColor = color(255,0, 0);
     }
 
     void draw() {
         fill(fillColor);
-        rect(posx * 10, posy * 10, 10, 10);
+        rect(posx * fieldSize, posy * fieldSize, fieldSize, fieldSize);
     }
 
     void ateFood(){

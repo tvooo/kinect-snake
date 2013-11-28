@@ -9,12 +9,12 @@ class Snake {
     Segment[] segments;
     int snakeSize = 1;
 
-    Snake( int x, int y) {
+    Snake( int x, int y, color col) {
         posx = x;
         posy = y;
+        fillColor = col;
         speed = 100;
         speed = speed/frameRate;
-        fillColor = color(255,255,192);
 
         segments = new Segment[100];
 
@@ -38,8 +38,10 @@ class Snake {
     }
 
     void move() {
-        posx += moveX;
-        posy += moveY;
+        posx += moveX + gridSize;
+        posy += moveY + gridSize;
+        posx %= gridSize;
+        posy %= gridSize;
 
         for(int i = snakeSize-1; i > 0; i--){
             segments[i].move( segments[i-1].posx, segments[i-1].posy);
@@ -69,5 +71,18 @@ class Snake {
         if ( moveX == -1 ) return;
         moveX = 1;
         moveY = 0;
+    }
+
+    boolean collides( Snake otherSnake ) {
+        boolean collision = false;
+        for ( int i = 0; i < otherSnake.snakeSize; i++ ) {
+            if ( this.posx == otherSnake.segments[i].posx &&
+                 this.posy == otherSnake.segments[i].posy) {
+                if ( !(this == otherSnake && i == 0)) {
+                    collision = true;
+                }
+            }
+        }
+        return collision;
     }
 };
