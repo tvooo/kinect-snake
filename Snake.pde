@@ -37,7 +37,8 @@ class Snake {
             println("NOMNOMMODE ACTIVATED");
         }
 
-        println("snakeSize: " + snakeSize);
+        println("snakeSize1: " + snakes.get(0).snakeSize);
+        println("snakeSize2: " + snakes.get(1).snakeSize);
     }
 
     void draw() {
