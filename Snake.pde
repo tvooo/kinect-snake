@@ -33,6 +33,8 @@ class Snake {
 
         if ( food instanceof SpecialFood ) {
             nomNomMode = true;
+            musicPlayer.pause();
+            soundPlayer.play();
             nomNomCounter = 25;
             println("NOMNOMMODE ACTIVATED");
         }
@@ -64,6 +66,8 @@ class Snake {
         if ( nomNomMode ) {
             if ( --nomNomCounter <= 0 ) {
                 nomNomMode = false;
+                soundPlayer.pause();
+                musicPlayer.loop();
             }
 
         }

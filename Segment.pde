@@ -17,6 +17,7 @@ class Segment {
 
     void draw( boolean head ) {
         fill(fillColor);
+        noStroke();
         if ( head ) fill(255, 0, 0);
         rect(posx * fieldSize, posy * fieldSize, fieldSize, fieldSize);
     }

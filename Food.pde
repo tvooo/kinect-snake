@@ -17,6 +17,7 @@ class Food {
 
     void draw() {
         fill(fillColor);
+        noStroke();
         rect(posx * fieldSize, posy * fieldSize, fieldSize, fieldSize);
     }
 

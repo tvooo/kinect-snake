@@ -1,15 +1,24 @@
+import ddf.minim.spi.*;
+import ddf.minim.signals.*;
+import ddf.minim.*;
+import ddf.minim.analysis.*;
+import ddf.minim.ugens.*;
+import ddf.minim.effects.*;
+
 import java.util.*;
 
 ArrayList<Snake> snakes;
-
 Food food;
 AI ai;
 
+Minim minim;
+
+/* Config */
 int fieldSize = 30;
-
 int windowSize = 600;
-int gridSize = windowSize / fieldSize;
 
+/* Inits */
+int gridSize = windowSize / fieldSize;
 int specialFoodCounter = 1;
 
 float speed;
@@ -17,15 +26,21 @@ float speed;
 boolean gameOver = false;
 PFont font = createFont("Courier New Bold",25, true);
 PFont playerFont = createFont("Courier New Bold",16, true);
+AudioPlayer musicPlayer, soundPlayer;
 
 void setup(){
     size(int(windowSize), int(windowSize),P3D);
+    minim = new Minim(this);
+    musicPlayer = minim.loadFile("tunnels.wav");
+    soundPlayer = minim.loadFile("steal.wav");
+
     speed = 100;
     speed = speed/frameRate;
 
     background(0);
     food = new Food();
     reset();
+    musicPlayer.loop();
 }
 
 void drawText() {
@@ -76,7 +91,7 @@ void runGame(){
         for( Snake snake : snakes ) {
             if(food.posx == snake.posx && food.posy == snake.posy){
                 snake.eat( food );
-                food = (++specialFoodCounter % 3 == 0) ? new SpecialFood() : new Food();
+                food = (++specialFoodCounter % 4 == 0) ? new SpecialFood() : new Food();
                 ai.setFood( food );
             }
             snake.move();
@@ -95,6 +110,11 @@ void runGame(){
             }
         }
     } else {
+        food.draw();
+        for( Snake snake : snakes ) {
+            snake.draw();
+        }
+        soundPlayer.pause();
         textAlign(CENTER, CENTER);
         String modelString = "Game Over";
         stroke(255);
