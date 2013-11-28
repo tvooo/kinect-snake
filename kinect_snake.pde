@@ -62,6 +62,8 @@ void reset(){
     snakes = new ArrayList<Snake>();
     snakes.add(new Snake(1, 1, color(100, 200, 100)));
     snakes.add(new Snake(gridSize-2, gridSize-2, color(100, 100, 200)));
+    snakes.get(0).moveDown();
+    snakes.get(1).moveUp();
     ai = new AI(snakes.get(1), food);
 }
 
@@ -103,14 +105,10 @@ void runGame(){
 }
 
 void keyPressed() {
-    if(keyCode == UP) { snakes.get(0).moveUp(); }
-    if(keyCode == DOWN) { snakes.get(0).moveDown(); }
-    if(keyCode == LEFT) { snakes.get(0).moveLeft(); }
-    if(keyCode == RIGHT) { snakes.get(0).moveRight(); }
-    if(keyCode == 'W') { snakes.get(1).moveUp(); }
-    if(keyCode == 'S') { snakes.get(1).moveDown(); }
-    if(keyCode == 'A') { snakes.get(1).moveLeft(); }
-    if(keyCode == 'D') { snakes.get(1).moveRight(); }
+    if(keyCode == LEFT) { snakes.get(0).goLeft(); }
+    if(keyCode == RIGHT) { snakes.get(0).goRight(); }
+    if(keyCode == 'A') { snakes.get(1).goLeft(); }
+    if(keyCode == 'D') { snakes.get(1).goRight(); }
     if(keyCode == 'R') {reset();}
 }
 

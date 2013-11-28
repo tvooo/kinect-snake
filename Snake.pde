@@ -93,6 +93,32 @@ class Snake {
         moveY = 0;
     }
 
+    /*
+    < -1 : 0
+    V  0 : 1
+    >  1 : 0
+    ^  0 : -1
+    */
+    void goLeft() {
+        if ( moveX != 0 ) {
+            moveY = -moveX;
+            moveX = 0;
+        } else {
+            moveX = moveY;
+            moveY = 0;
+        }
+    }
+
+    void goRight() {
+        if ( moveX != 0 ) {
+            moveY = moveX;
+            moveX = 0;
+        } else {
+            moveX = -moveY;
+            moveY = 0;
+        }
+    }
+
     boolean collides( Snake otherSnake ) {
         boolean collision = false;
         for ( int i = 0; i < otherSnake.snakeSize; i++ ) {
