@@ -1,12 +1,13 @@
 import java.util.*;
 
-ArrayList<Snake> snakes = new ArrayList<Snake>();
+ArrayList<Snake> snakes;
 
 Food food;
+AI ai;
 
-int fieldSize = 15;
+int fieldSize = 30;
 
-int windowSize = 300;
+int windowSize = 600;
 int gridSize = windowSize / fieldSize;
 
 int specialFoodCounter = 1;
@@ -22,19 +23,14 @@ void setup(){
     speed = speed/frameRate;
 
     background(0);
-
-    snakes.add(new Snake(1, 1, color(100, 200, 100)));
-    snakes.add(new Snake(gridSize-2, gridSize-2, color(100, 100, 200)));
-
     food = new Food();
-
-    gameOver = false;
+    reset();
 }
 
 void draw() {
     if(speed%10 == 0){
         background(0);
-        drawGrid();
+        //drawGrid();
         runGame();
     }
     speed++;
@@ -55,14 +51,20 @@ void reset(){
     snakes = new ArrayList<Snake>();
     snakes.add(new Snake(1, 1, color(100, 200, 100)));
     snakes.add(new Snake(gridSize-2, gridSize-2, color(100, 100, 200)));
+    ai = new AI(snakes.get(1), food);
 }
 
 void runGame(){
     if ( !gameOver ){
+        ai.apply();
+
+        food.draw();
+
         for( Snake snake : snakes ) {
             if(food.posx == snake.posx && food.posy == snake.posy){
                 snake.eat( food );
                 food = (++specialFoodCounter % 3 == 0) ? new SpecialFood() : new Food();
+                ai.setFood( food );
             }
             snake.move();
             snake.draw();
@@ -79,8 +81,6 @@ void runGame(){
                 }
             }
         }
-
-        food.draw();
     } else {
         String modelString = "game over";
         stroke(255);

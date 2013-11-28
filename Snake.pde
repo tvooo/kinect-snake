@@ -34,10 +34,10 @@ class Snake {
         if ( food instanceof SpecialFood ) {
             nomNomMode = true;
             nomNomCounter = 25;
+            println("NOMNOMMODE ACTIVATED");
         }
 
         println("snakeSize: " + snakeSize);
-        println("NOMNOMMODE ACTIVATED");
     }
 
     void draw() {
