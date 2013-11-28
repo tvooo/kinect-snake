@@ -12,7 +12,7 @@ class Food {
     Food() {
         posx = (int)random(1,gridSize);
         posy = (int)random(1,gridSize);
-        fillColor = color(255,0, 0);
+        fillColor = color(255,120, 50);
     }
 
     void draw() {

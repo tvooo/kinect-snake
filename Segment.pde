@@ -15,7 +15,9 @@ class Segment {
         posy = y % gridSize;
     }
 
-    void draw() {
+    void draw( boolean head ) {
+        fill(fillColor);
+        if ( head ) fill(255, 0, 0);
         rect(posx * fieldSize, posy * fieldSize, fieldSize, fieldSize);
     }
 };

@@ -9,6 +9,9 @@ class Snake {
     Segment[] segments;
     int snakeSize = 1;
 
+    boolean nomNomMode = false;
+    int nomNomCounter = 0;
+
     Snake( int x, int y, color col) {
         posx = x;
         posy = y;
@@ -27,13 +30,22 @@ class Snake {
         // Attach new segment to last one, in opposite direction of moving
         segments[snakeSize] = new Segment(this, lastSegment.posx - moveX, lastSegment.posy - moveY);
         snakeSize++;
+
+        if ( food instanceof SpecialFood ) {
+            nomNomMode = true;
+            nomNomCounter = 25;
+        }
+
         println("snakeSize: " + snakeSize);
+        println("NOMNOMMODE ACTIVATED");
     }
 
     void draw() {
+        boolean head = false;
         fill(fillColor);
         for(int i = 0; i < snakeSize; i++) {
-            segments[i].draw();
+            head = nomNomMode && i == 0;
+            segments[i].draw( head );
         }
     }
 
@@ -47,6 +59,13 @@ class Snake {
             segments[i].move( segments[i-1].posx, segments[i-1].posy);
         }
         segments[0].move( posx, posy );
+
+        if ( nomNomMode ) {
+            if ( --nomNomCounter <= 0 ) {
+                nomNomMode = false;
+            }
+
+        }
     }
 
     void moveUp() {
@@ -84,5 +103,18 @@ class Snake {
             }
         }
         return collision;
+    }
+
+    int collidesWhere( Snake otherSnake ) {
+        int result = -1;
+        for ( int i = 0; i < otherSnake.snakeSize; i++ ) {
+            if ( this.posx == otherSnake.segments[i].posx &&
+                 this.posy == otherSnake.segments[i].posy) {
+                if ( !(this == otherSnake && i == 0)) {
+                    result = i;
+                }
+            }
+        }
+        return result;
     }
 };

@@ -9,6 +9,8 @@ int fieldSize = 15;
 int windowSize = 300;
 int gridSize = windowSize / fieldSize;
 
+int specialFoodCounter = 1;
+
 float speed;
 
 boolean gameOver = false;
@@ -29,7 +31,7 @@ void setup(){
     gameOver = false;
 }
 
-void draw(){
+void draw() {
     if(speed%10 == 0){
         background(0);
         drawGrid();
@@ -60,7 +62,7 @@ void runGame(){
         for( Snake snake : snakes ) {
             if(food.posx == snake.posx && food.posy == snake.posy){
                 snake.eat( food );
-                food = new Food();
+                food = (++specialFoodCounter % 3 == 0) ? new SpecialFood() : new Food();
             }
             snake.move();
             snake.draw();
@@ -69,7 +71,11 @@ void runGame(){
         for ( Snake snake : snakes ) {
             for ( Snake otherSnake : snakes ) {
                 if ( snake.collides(otherSnake) ) {
-                    gameOver = true;
+                    if ( snake.nomNomMode ) {
+                        otherSnake.snakeSize = snake.collidesWhere(otherSnake);
+                    } else {
+                        gameOver = true;
+                    }
                 }
             }
         }
